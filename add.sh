@@ -11,12 +11,20 @@
 #
 
 add_user() {
-    echo "User: $1"
+    user=$1
+    psql <<EOF
+INSERT INTO "user" (name) VALUES ('$user')
+EOF
+echo "User added"
 }
 
 add_todo() {
-    echo "User: $1"
-    echo "Todo: $2"
+    user=$1
+    todo=$2
+    psql <<EOF
+INSERT INTO todo (task, user_id) VALUES ('$todo', (SELECT id FROM "user" WHERE name='$user'))
+EOF
+echo "Todo added"
 }
 
 main() {
