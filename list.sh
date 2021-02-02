@@ -28,7 +28,7 @@ list_user_todos() {
 main() {
     if [[ "$1" == "list-users" ]]
     then
-        list_users
+	list_users
     elif [[ "$1" == "list-todos" ]]
     then
         list_todos
