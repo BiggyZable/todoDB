@@ -18,10 +18,17 @@ EOF
 }
 
 list_todos() {
-    echo "Your code"
+    psql <<EOF
+SELECT * FROM todo
+EOF
 }
 
 list_user_todos() {
+    psql <<EOF
+SELECT * FROM todo
+JOIN "user" ON "user".id=todo.user_id
+WHERE name='$1'
+EOF
     echo "User: $1"
 }
 
