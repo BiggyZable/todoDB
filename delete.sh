@@ -9,19 +9,21 @@
 #
 
 delete_todo(){
-psql <<EOF
+psql -v ON_ERROR_STOP=1 <<EOF
 DELETE FROM todo
 WHERE id=$1
 EOF
 echo "Todo removed"
+echo $?
 }
 
 delete_done(){
-psql <<EOF
+psql -v ON_ERROR_STOP=1 <<EOF
 DELETE FROM todo
 WHERE done=true
 EOF
 echo "Done todos are removed"
+echo $?
 }
 
 main(){

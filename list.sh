@@ -24,12 +24,13 @@ EOF
 }
 
 list_user_todos() {
-    psql <<EOF
+    psql -v "ON_ERROR_STOP=1" <<EOF
 SELECT * FROM todo
 JOIN "user" ON "user".id=todo.user_id
 WHERE name='$1'
 EOF
     echo "User: $1"
+    echo $?
 }
 
 main() {

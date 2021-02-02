@@ -12,19 +12,21 @@
 
 add_user() {
     user=$1
-    psql <<EOF
+    psql -v ON_ERROR_STOP=1 <<EOF
 INSERT INTO "user" (name) VALUES ('$user')
 EOF
 echo "User added"
+echo $?
 }
 
 add_todo() {
     user=$1
     todo=$2
-    psql <<EOF
+    psql -v ON_ERROR_STOP=1 <<EOF
 INSERT INTO todo (task, user_id) VALUES ('$todo', (SELECT id FROM "user" WHERE name='$user'))
 EOF
 echo "Todo added"
+echo $?
 }
 
 main() {

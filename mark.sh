@@ -9,21 +9,23 @@
 #
 
 mark_todo(){
-psql <<EOF
+psql -v ON_ERROR_STOP=1 <<EOF
 UPDATE todo
 SET done=true
 WHERE id=$1
 EOF
 echo "Marked as done"
+echo $?
 }
 
 unmark_todo(){
-psql <<EOF
+psql -v ON_ERROR_STOP=1 <<EOF
 UPDATE todo
 SET done=false
 WHERE id=$1
 EOF
 echo "Marked as *not* done"
+echo $?
 }
 
 main() {
